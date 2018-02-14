@@ -25,13 +25,31 @@ google map
 
 
 
-TO DO
+<!-- TO DO -->
 
 
 psudocode
 - retrieve info from google place nearby based on lat long (focus on toronto for now)
     - filter for locations through type and price level
-    
+
 
 - use user location as lat long input
 - embed map with customized markers
+
+
+BASIC PSEUDO CODE
+
+RETRIEVE USER LOCATIONS API
+    USE LOCATION DATA (LAT LONG) PUT IT INTO THE AJAX REQUEST 
+
+USE LAT LONG VALUES FROM USER LOCATION AND FILTER THRU CERTAIN TYPES OF ESTABLSIHMENTS (5) AS WELL AS PRICE POINTS
+IF WE HAVE TIME INCLUDE THE SAME VALUES ONTO THE REFUGE WASHROOM API
+
+USING THE FILTER RESULTS IT WILL GENNERATE MARKERS REFLECTING THE SEARCH RESULTS
+
+WHEN USER SELECTS MARKER, ADDITIONAL INFO WILL SHOW 
+
+
+
+
+
