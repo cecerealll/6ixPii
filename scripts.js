@@ -1,10 +1,11 @@
+
 const pos = {};
 
-const getLocation = function () {
+const getLocation = function() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            pos.lat = position.coords.latitude;
-            pos.lng = position.coords.longitude;
+    navigator.geolocation.getCurrentPosition(position => {
+        pos.lat = position.coords.latitude;
+        pos.lng = position.coords.longitude;
         });
         cafe();
     }
@@ -12,8 +13,8 @@ const getLocation = function () {
 
 
 
-const cafe = function () {
-    const cafeReq = $.ajax({
+const cafe = function() {
+        const cafeReq = $.ajax({
         url: 'https://proxy.hackeryou.com',
         method: 'GET',
         dataType: 'json',
@@ -40,7 +41,7 @@ const cafe = function () {
 //     const typeOfPokemon = await getType(firstPokemon.types[0].type.name);
 //     console.log(typeOfPokemon);
 // };
-// .then(res2 => console.log(res2.results));
+    // .then(res2 => console.log(res2.results));
 
 
 
@@ -60,17 +61,17 @@ const cafe = function () {
 //             },
 //         },
 //     })
-// .then(res2 => console.log(res2.results));
+    // .then(res2 => console.log(res2.results));
 
-const combine = function () {
+const combine = function() {
     $.when(cafe).then((res) => {
         console.log(res);
     });
 }
 
 
-$(function () {
-    $('button').on('click', function () {
+$(function() {
+    $('button').on('click', function() {
         getLocation();
         combine();
     });
