@@ -5,16 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-        <button>stalk meh</button>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <button>stalk meh</button>
     <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
     <script>
         const pos = {};
         let locations = [];
 
+        function initMap() {
+            // var uluru = { lat: -25.363, lng: 131.044 };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: locations[0]
+            });
+            var marker = new google.maps.Marker({
+                position: locations[0],
+                map: map
+            });
+        }
+
         // array with types to be passed in arguments
-        pos.venues = ['cafe', 'restaurant', `shopping_mall`];
+        pos.venues = ['cafe', 'restaurant', `shopping_mall`, 'gas_station'];
 
         // get user permission to track location
         const getLocation = function () {
@@ -24,7 +44,7 @@
                     pos.lng = position.coords.longitude;
                     // pass in pos.getVenues to access user location
                     pos.getVenues();
-                    //
+                    initMap();
                 });
             }
         }
@@ -37,6 +57,7 @@
                 getVenue(item).then((res)=>{res.results.forEach((jtem)=>{
                         // pushing the lat-long objects into an array
                         locations.push(jtem.geometry.location);
+                        
                     });
                 }); 
             });
@@ -58,7 +79,7 @@
                     params: {
                         key: 'AIzaSyANaLsqMb-Vp4_WS06TGn6F2Whc_XB8Lbc',
                         location: `${pos.lat},${pos.lng}`,
-                        radius: 1000,
+                        radius: 500,
                         type: venueType
                     },
                 },
@@ -72,5 +93,7 @@
             });
         });
     </script>    
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANaLsqMb-Vp4_WS06TGn6F2Whc_XB8Lbc&callback=getLocation">
+    </script>
 </body>
 </html>
