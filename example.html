@@ -14,8 +14,9 @@
     </style>
 </head>
 <body>
-        <h3>My Google Maps Demo</h3>
-        <div id="map"></div>
+        <!-- <h3>My Google Maps Demo</h3>
+        <div id="map"></div> -->
+        <button>stalk meh</button>
 
         <!-- <script>
 
@@ -149,7 +150,7 @@
         });
     </script> -->
 
-    <script>
+    <!-- <script>
         // Note: This example requires that you consent to location sharing when
         // prompted by your browser. If you see the error "The Geolocation service
         // failed.", it means you probably did not give permission for the browser to
@@ -193,6 +194,94 @@
                     }
                 </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANaLsqMb-Vp4_WS06TGn6F2Whc_XB8Lbc&callback=initMap">
+    </script> -->
+
+    <!-- someting working -->
+    <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
+    <script>
+        // function initMap() {
+        //         // var uluru = { lat: -25.363, lng: 131.044 };
+        //         var map = new google.maps.Map(document.getElementById('map'), {
+        //             zoom: 4,
+        //             center: locations[0]
+        //         });
+        //         var marker = new google.maps.Marker({
+        //             position: locations[0],
+        //             map: map
+        //         });
+        //     }
+
+
+        const pos = {};
+        let locations = [];
+
+        // array with types to be passed in arguments
+        pos.venues = ['cafe', 'restaurant', `shopping_mall`];
+
+        // get user permission to track location
+        const getLocation = function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    pos.lat = position.coords.latitude;
+                    pos.lng = position.coords.longitude;
+                    // pass in pos.getVenues to access user location
+                    pos.getVenues();
+                    //
+                });
+            }
+        }
+        
+        //  essentially a function to have all the params in the pos.venues array passed one by one to the ajax requesst and use $.when() to retrieve into and pass it all into onne array
+        pos.getVenues = () => {
+            // const venues2 = pos.venues.map()
+            // for (i = 0; i < pos.venues.length; i++) {
+            //     // console.log(pos.venues[i]);
+            //     $.when(getVenue(pos.venues[i])).then((res) => {
+            //         console.log(res.results);
+            //     });
+            // }
+            // console.log('hi');
+
+            pos.venues.forEach((item)=>{
+                getVenue(item).then((res)=>{res.results.forEach((jtem)=>{
+                        locations.push(jtem.geometry.location);
+                    });
+                }); 
+            });
+            console.log(locations);
+            // PSUEDOCODE RYANN PROVIDED
+            //Using the venues array we will make a request for each of them and thenn
+            // use the .when methos listen for when they are all done
+            //Using the map method, figure out how to return a new array of calles to the places api.
+        }
+        
+        // ajax req
+        const getVenue = function (venueType) {
+            return $.ajax({
+                url: 'https://proxy.hackeryou.com',
+                method: 'GET',
+                dataType: 'json',
+                data: {
+                    reqUrl: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json',
+                    params: {
+                        key: 'AIzaSyANaLsqMb-Vp4_WS06TGn6F2Whc_XB8Lbc',
+                        location: `${pos.lat},${pos.lng}`,
+                        radius: 1000,
+                        type: venueType
+                    },
+                },
+            })
+        }
+
+        // just a button for user to click to give permission 
+        $(function () {
+            $('button').on('click', function () {
+                getLocation();
+                // initMap();
+            });
+        });
     </script>
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANaLsqMb-Vp4_WS06TGn6F2Whc_XB8Lbc&callback=initMap"> -->
+    <!-- </script> -->
 </body>
 </html>
