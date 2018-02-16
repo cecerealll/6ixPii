@@ -51,5 +51,12 @@ WHEN USER SELECTS MARKER, ADDITIONAL INFO WILL SHOW
 
 
 
+presentation notes
+- delegatinng work (callie works on appending map), (cece work onn collecting the correct data)
+
+
+
+
+
 
 
