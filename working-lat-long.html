@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <button>stalk meh</button>
+    <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
+    <script>
+        const pos = {};
+        let locations = [];
+        // array with types to be passed in arguments
+        pos.venues = ['cafe', 'restaurant', `shopping_mall`];
+        // get user permission to track location
+        const getLocation = function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    pos.lat = position.coords.latitude;
+                    pos.lng = position.coords.longitude;
+                    // pass in pos.getVenues to access user location
+                    pos.getVenues();
+                    //
+                });
+            }
+        }
+        
+        //  essentially a function to have all the params in the pos.venues array passed one by one to the ajax requesst and use $.when() to retrieve into and pass it all into onne array
+        pos.getVenues = () => {
+            // for each in a for each to recieive location objects
+            pos.venues.forEach((item)=>{
+                getVenue(item).then((res)=>{res.results.forEach((jtem)=>{
+                        // pushing the lat-long objects into an array
+                        locations.push(jtem.geometry.location);
+                    });
+                }); 
+            });
+            console.log(locations);
+            // PSUEDOCODE RYANN PROVIDED
+            //Using the venues array we will make a request for each of them and thenn
+            // use the .when methos listen for when they are all done
+            //Using the map method, figure out how to return a new array of calles to the places api.
+        }
+        
+        // ajax req
+        const getVenue = function (venueType) {
+            return $.ajax({
+                url: 'https://proxy.hackeryou.com',
+                method: 'GET',
+                dataType: 'json',
+                data: {
+                    reqUrl: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json',
+                    params: {
+                        key: 'AIzaSyANaLsqMb-Vp4_WS06TGn6F2Whc_XB8Lbc',
+                        location: `${pos.lat},${pos.lng}`,
+                        radius: 1000,
+                        type: venueType
+                    },
+                },
+            })
+        }
+        // just a button for user to click to give permission 
+        $(function () {
+            $('button').on('click', function () {
+                getLocation();
+            });
+        });
+    </script>    
+</body>
+</html>
