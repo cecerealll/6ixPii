@@ -5,16 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+    #map {
+        height: 400px;
+        width: 320px;
+       }</style>
 </head>
 <body>
+        <h1>Something Six Spot</h1>
         <button>stalk meh</button>
+        
+        <div id="map"></div>
+        <div class="bathroom-results-container">
+            <div class="bathroom-location"></div>
+            <div class="bathroom-location"></div>
+            <div class="bathroom-location"></div>
+            <div class="bathroom-location"></div>
+            <div class="bathroom-location"></div>
+            <div class="bathroom-location"></div>
+        </div>
+
     <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbq2MoZkppvEWbIonDVq9SU2TWhktZsPE">
+    </script>
     <script>
         const pos = {};
         let locations = [];
+        locationsList = () => {
+            for (let i = 0; i < locations.length; i++) {
+                    console.log(locations[i].lat);
+                }
+            }
 
         // array with types to be passed in arguments
-        pos.venues = ['cafe', 'restaurant', `shopping_mall`];
+        pos.venues = ['cafe', 'gas_station', `shopping_mall`];
 
         // get user permission to track location
         const getLocation = function () {
@@ -22,8 +46,11 @@
                 navigator.geolocation.getCurrentPosition(position => {
                     pos.lat = position.coords.latitude;
                     pos.lng = position.coords.longitude;
+                    pos.latlng = position.coords.latitude + ',' + position.coords.longitude;
                     // pass in pos.getVenues to access user location
                     pos.getVenues();
+                    //calling the changeMap callback function:
+                    pos.changeMap(pos.lat, pos.lng, pos.lat, pos.lng);
                     //
                 });
             }
@@ -32,20 +59,42 @@
         //  essentially a function to have all the params in the pos.venues array passed one by one to the ajax requesst and use $.when() to retrieve into and pass it all into onne array
         pos.getVenues = () => {
 
-            // for each in a for each to recieive location objects
-            pos.venues.forEach((item)=>{
-                getVenue(item).then((res)=>{res.results.forEach((jtem)=>{
-                        // pushing the lat-long objects into an array
-                        locations.push(jtem.geometry.location);
-                    });
-                }); 
+            const finalLocations = pos.venues.map((item) => {
+                return getVenue(item);
             });
-            console.log(locations);
+
+            $.when(...finalLocations)
+            .then((...locations) => {
+                locations = locations 
+                .map(el => el[0].results)
+                .reduce((acc,curr) => [...acc,...curr],[])
+                .map(el2 => el2.geometry.location);
+                console.log(locations);
+                let locationCoordinates = locations[0];
+                let locationCoordinates2 = locations[1];
+                let locationCoordinates3 = locations[2];
+                let locationCoordinates4 = locations[3];
+                let locationCoordinates5 = locations[4];
+                let locationCoordinates6 = locations[5];
+                pos.addMarkers(locationCoordinates, locationCoordinates2, locationCoordinates3, locationCoordinates4, locationCoordinates5, locationCoordinates6);
+            });
+
+            // // for each in a for each to recieive location objects
+            // pos.venues.forEach((item)=>{
+            //     getVenue(item).then((res)=>{res.results.forEach((jtem)=>{
+            //             // pushing the lat-long objects into an array
+            //             locations.push(jtem.geometry.location);
+            //         });
+            //     }); 
+            // });
             // PSUEDOCODE RYANN PROVIDED
             //Using the venues array we will make a request for each of them and thenn
             // use the .when methos listen for when they are all done
             //Using the map method, figure out how to return a new array of calles to the places api.
+            //console.log(locations);
         }
+
+        
         
         // ajax req
         const getVenue = function (venueType) {
@@ -58,18 +107,96 @@
                     params: {
                         key: 'AIzaSyANaLsqMb-Vp4_WS06TGn6F2Whc_XB8Lbc',
                         location: `${pos.lat},${pos.lng}`,
-                        radius: 1000,
+                        rankby: `distance`,
                         type: venueType
                     },
                 },
             })
         }
+    //This function changes the map with the current users geolocation details 
+    //It is called in the on.('click') above as a call back function
+    //I'm currently using lat and long and using different markers as the parameters to hold the place of where the results would
+    //be passed through to populate the map
+    //I'm playing around with icon types as well, we can change all of this
+    pos.changeMap = function initMap(lat, lng, userLat, userLng) {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: lat, lng: lng },
+            zoom: 18
+        });
+        infoWindow = new google.maps.InfoWindow;
+        let UserLocation = new google.maps.Marker({
+            position: { lat: userLat, lng: userLng },
+            map: map,
+            title: 'Hello World!',
+            animation: google.maps.Animation.BOUNCE
+        });
+    }
+
+    pos.addMarkers = function initMap(locationCoordinates, locationCoordinates2, locationCoordinates3, locationCoordinates4, locationCoordinates5, locationCoordinates6) {
+        let marker1 = new google.maps.Marker({
+            position: locationCoordinates,
+            map: map,
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 4
+            }
+        });
+        let marker2 = new google.maps.Marker({
+            position: locationCoordinates2,
+            map: map
+        });
+        let marker3 = new google.maps.Marker({
+            position: locationCoordinates3,
+            map: map
+        });
+        let marker4 = new google.maps.Marker({
+            position: locationCoordinates4,
+            map: map
+        });
+        let marker5 = new google.maps.Marker({
+            position: locationCoordinates5,
+            map: map
+        });
+        let marker6 = new google.maps.Marker({
+            position: locationCoordinates6,
+            map: map
+        });
+    }
+        
+        // let marker4 = new google.maps.Marker({
+        //     position: { lat: markerG, lng: markerH },
+        //     map: map,
+        //     icon: {
+        //         path: google.maps.SymbolPath.CIRCLE,
+        //         scale: 4
+        //     }
+        // });
+        // let marker5 = new google.maps.Marker({
+        //     position: { lat: markerG, lng: markerH },
+        //     map: map,
+        //     icon: {
+        //         path: google.maps.SymbolPath.CIRCLE,
+        //         scale: 4
+        //     }
+        // });
+
+        //This is the original map function that displays the Google Map of Toronto
+            //When the page originally loads.
+            //I currently don't have a marker set up
+            pos.makeMap = function initMap() {
+                let toronto = { lat: 43.6532, lng: -79.3832 };
+                let map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 7,
+                    center: toronto
+                });
+            }
 
         // just a button for user to click to give permission 
         $(function () {
             $('button').on('click', function () {
                 getLocation();
             });
+            pos.makeMap();
         });
     </script>    
 </body>
