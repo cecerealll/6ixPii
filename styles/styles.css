@@ -258,6 +258,12 @@ body {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between; }
+    .text-container .social p {
+      font-family: 'Poiret One',cursive;
+      margin: 0 0 5px 0;
+      padding: 0;
+      text-transform: capitalize;
+      word-spacing: 5px; }
     .text-container .social a {
       color: #e76565; }
       .text-container .social a:focus, .text-container .social a:visited, .text-container .social a:active {

@@ -112,6 +112,14 @@ body {
         width: 100%;
         display: flex;
         justify-content: space-between;
+        p {
+            font-family: 'Poiret One',cursive;
+            margin: 0 0 5px 0;
+            padding: 0;
+            text-transform: capitalize;
+            word-spacing: 5px;
+            
+        }
         a {
             color: rgb(231, 101, 101);
             &:focus,
