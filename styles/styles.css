@@ -132,15 +132,28 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-/*Fonts*/
+@-webkit-keyframes loading {
+  0% {
+    background: #43a4f3; }
+  100% {
+    background: white; } }
+
+@keyframes loading {
+  0% {
+    background: #43a4f3; }
+  100% {
+    background: white; } }
+
 html {
   font-size: 62.5%; }
 
 body {
   font-family: 'Muli', sans-serif;
   font-size: 1.6rem;
-  background-image: url(../images/background-tile.png);
-  background-repeat: repeat;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(81, 177, 255, 0.4)), to(rgba(90, 175, 245, 0.1))), url(../images/raindrop.jpg);
+  background: -webkit-linear-gradient(rgba(81, 177, 255, 0.4), rgba(90, 175, 245, 0.1)), url(../images/raindrop.jpg);
+  background: -o-linear-gradient(rgba(81, 177, 255, 0.4), rgba(90, 175, 245, 0.1)), url(../images/raindrop.jpg);
+  background: linear-gradient(rgba(81, 177, 255, 0.4), rgba(90, 175, 245, 0.1)), url(../images/raindrop.jpg);
   text-align: center;
   margin: 0 auto;
   height: 100vh;
@@ -158,15 +171,68 @@ body {
   align-content: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center; }
+  align-items: center;
+  position: relative; }
+
+.loadscreen-container {
+  position: relative;
+  width: 100%;
+  height: 100vh; }
+
+.loadscreen {
+  background-color: white;
+  z-index: 999;
+  width: 100vw;
+  position: absolute;
+  height: 100vh;
+  -webkit-animation: loading 3s;
+  animation: loading 3s;
+  top: 0;
+  bottom: 0; }
+  .loadscreen .load-img {
+    position: absolute;
+    width: 300px;
+    right: 45%;
+    -webkit-transform: translateY(30%);
+    -ms-transform: translateY(30%);
+    transform: translateY(30%); }
+    .loadscreen .load-img img {
+      width: 100%; }
+  .loadscreen .title {
+    position: absolute;
+    font-size: 12rem;
+    left: 55%;
+    top: 0;
+    font-family: 'Poiret One', cursive;
+    font-weight: 700;
+    color: white; }
+    .loadscreen .title span {
+      color: black; }
+  .loadscreen .slogan {
+    position: absolute;
+    font-size: 4rem;
+    left: 55%;
+    width: 100%;
+    top: 60%;
+    font-family: 'Poiret One', cursive; }
+  @media (max-width: 890px) {
+    .loadscreen .load-img {
+      width: 200px;
+      -webkit-transform: translateY(60%);
+      -ms-transform: translateY(60%);
+      transform: translateY(60%); }
+    .loadscreen .title {
+      font-size: 8rem; } }
+  @media (max-width: 768px) {
+    .loadscreen .load-img {
+      right: 40%;
+      width: 190px; } }
 
 .text-container {
-  background-color: white;
-  max-width: calc(100% - 1rem);
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  border-radius: 1.2rem;
-  border: #535F62 solid 0.2rem;
+  background-color: rgba(255, 255, 255, 0.678);
+  max-width: 1170px;
+  width: 70%;
+  border-radius: 5%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -182,35 +248,62 @@ body {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 2rem; }
+  padding: 1% 2% 2% 2%;
+  position: relative; }
+  .text-container .social {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between; }
+    .text-container .social a {
+      color: #e76565; }
+      .text-container .social a:focus, .text-container .social a:visited, .text-container .social a:active {
+        color: #e76565; }
+    .text-container .social .cece,
+    .text-container .social .callie {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      font-family: 'Poiret One', cursive; }
+      .text-container .social .cece p,
+      .text-container .social .callie p {
+        padding: 0;
+        margin: 0 5px; }
   .text-container p {
     font-size: 1.8rem; }
 
-h1 {
-  font-family: 'Philosopher', sans-serif;
-  color: #535F62;
-  font-size: 6rem;
-  padding: 0;
-  margin: 0;
-  display: inline-block; }
-
 button {
   display: inline-block;
-  font-size: 1.8rem;
-  padding: 1.6rem 5.5rem;
-  border-radius: 5rem;
-  margin-bottom: 1rem; }
+  background-color: rgba(54, 176, 247, 0.801);
+  position: absolute;
+  padding: 1.6rem 1.5rem 1.3rem;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  bottom: 7%;
+  right: 8%;
+  z-index: 99; }
   button:hover, button:focus {
-    background-color: #47C7E2;
-    color: white; }
+    background-color: rgba(23, 149, 221, 0.801);
+    color: white;
+    outline: none; }
+  button .toiletbutton {
+    width: 30px; }
+    button .toiletbutton img {
+      width: 100%; }
+  @media (max-width: 1200px) {
+    button {
+      right: 10%; } }
 
 #map {
-  height: 40rem;
-  width: 50rem;
+  height: 50rem;
+  width: 100%;
   margin: 0 auto;
-  border: #535F62 solid 0.2rem;
-  border-radius: 1.2rem;
-  display: inline-block; }
+  border-radius: 5%;
+  display: inline-block;
+  z-index: 0; }
 
 @media (max-width: 768px) {
   .text-container {
@@ -218,24 +311,29 @@ button {
     margin-left: 0;
     margin-right: 0;
     padding: 1rem; }
-  #map {
-    height: 30rem;
-    width: 30rem; } }
+    .text-container button {
+      right: 15%;
+      bottom: 5%; } }
 
 @media (max-width: 480px) {
   .text-container {
-    max-width: 31rem; }
+    width: 100%;
+    height: 100vh;
+    border-radius: 0; }
   #map {
-    height: 30rem;
-    width: 25rem; }
+    width: 100%;
+    height: 95vh; }
   button {
     display: inline-block;
     font-size: 1.6rem;
-    padding: 1.6rem 3rem;
-    border-radius: 5rem;
+    right: 22%;
+    bottom: 5%;
     -webkit-box-shadow: .3rem .7rem 1.4rem #535F62;
     box-shadow: .3rem .7rem 1.4rem #535F62;
-    margin-bottom: 1rem; } }
+    margin-bottom: 1rem;
+    margin-top: 20px; }
+    button .toiletbutton {
+      width: 20px; } }
 
 @media (max-width: 321px) {
   .text-container {

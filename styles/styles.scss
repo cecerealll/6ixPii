@@ -2,11 +2,14 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 .clearfix:after {visibility: hidden; display: block; font-size: 0; content: ''; clear: both; height: 0; }
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
-
-/*Fonts*/
-// font-family: 'Philosopher', sans-serif;
-// font-family: 'Muli', sans-serif;
-
+@keyframes loading {
+    0% {
+        background: rgb(67, 164, 243);
+    }
+    100% {
+        background: white;
+    }
+}
 
 html {
     font-size: 62.5%;
@@ -15,8 +18,8 @@ html {
 body {
     font-family: 'Muli', sans-serif;
     font-size: 1.6rem;
-    background-image: url(../images/background-tile.png);
-    background-repeat: repeat;
+    background: linear-gradient(rgba(81, 177, 255, 0.4), rgba(90, 175, 245, 0.1)),
+    url(../images/raindrop.jpg);
     text-align: center;
     margin: 0 auto;
     height: 100vh;
@@ -25,55 +28,149 @@ body {
     justify-content: center;
     align-content: center;
     align-items: center;
+    position: relative;
 }
 
-.text-container {
+.loadscreen-container{
+    position: relative;
+    width: 100%;
+    height: 100vh;    
+}
+.loadscreen {
     background-color: white;
-    max-width: calc(100% - 1rem);
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    border-radius: 1.2rem;
-    border: #535F62 solid 0.2rem;
+    z-index: 999;
+    width: 100vw;
+    position: absolute;
+    height: 100vh;
+    animation: loading 3s;
+    top: 0;
+    bottom: 0;
+
+    .load-img{
+        position: absolute;
+        width: 300px;
+        right: 45%;
+        transform: translateY(30%);
+        img {
+            width: 100%;
+        }
+
+    }
+    .title {
+        position: absolute;
+        font-size: 12rem;
+        left: 55%;
+        top: 0;
+        font-family: 'Poiret One', cursive;
+        font-weight: 700;
+        color: white;
+        span {
+            color: black;
+        }
+    }
+    .slogan {
+        position: absolute;
+        font-size: 4rem;
+        left: 55%;
+        width: 100%;
+        top: 60%; 
+        font-family: 'Poiret One',
+        cursive;
+    }
+
+    @media (max-width: 890px) {
+        .load-img {
+            width: 200px;
+            transform: translateY(60%);
+
+        }
+        .title {
+            font-size: 8rem;
+        }
+    }
+    @media (max-width: 768px) {
+        .load-img {
+            right: 40%;
+            width: 190px;
+        }
+    }
+
+}
+.text-container {
+    background-color: rgba(255, 255, 255, 0.678);
+    max-width: 1170px;
+    width: 70%;
+    border-radius: 5%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 1% 2% 2% 2%;
+    position: relative;
+    .social {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        a {
+            color: rgb(231, 101, 101);
+            &:focus,
+            &:visited,
+            &:active {
+                color: rgb(231, 101, 101);
+            }
+        }
+        .cece,
+        .callie {
+            display: flex;
+            font-family: 'Poiret One', cursive;
+            
+            p {
+                padding: 0;
+                margin: 0 5px;
+            }
+        }
+    }
     p {
         font-size: 1.8rem;
     }
 }
 
-h1 {
-    font-family: 'Philosopher', sans-serif;
-    color: #535F62;
-    font-size: 6rem;
-    padding: 0;
-    margin: 0;
-    display: inline-block;
-}
-
 
 button {
     display: inline-block;
-    font-size: 1.8rem;
-    padding: 1.6rem 5.5rem;
-    border-radius: 5rem;
+    background-color: rgba(54, 176, 247, 0.801);
+    position: absolute;
+    padding: 1.6rem 1.5rem 1.3rem;
+    border-radius: 50%;
     margin-bottom: 1rem;
+    bottom: 7%;
+    right: 8%;
+    z-index: 99;
     &:hover, &:focus {
-        background-color: #47C7E2;
+        background-color: rgba(23, 149, 221, 0.801);
         color: white;
+        outline: none;
+    }
+    .toiletbutton {
+        width: 30px;
+        img {
+            width: 100%;
+        }
+    }
+    @media (max-width: 1200px) {
+        right: 10%;
     }
 }
 
 #map {
-    height: 40rem;
-    width: 50rem;
+    height: 50rem;
+    width: 100%;
     margin: 0 auto;
-    border: #535F62 solid 0.2rem;
-    border-radius: 1.2rem;
+    border-radius: 5%;
     display: inline-block;
+    z-index: 0;
+    
     }
 
 @media (max-width: 768px) {
@@ -82,29 +179,35 @@ button {
         margin-left: 0;
         margin-right: 0;
         padding: 1rem;
-    }
-
-    #map {
-        height: 30rem;
-        width: 30rem;
+        button {
+             right: 15%;
+             bottom: 5%;
+        }
     }
 }
 
 @media (max-width: 480px) {
     .text-container {
-        max-width: 31rem;
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
     }
     #map {
-        height:30rem;
-        width: 25rem;
+        width: 100%;
+        height: 95vh;
     }
     button {
     display: inline-block;
     font-size: 1.6rem;
-    padding: 1.6rem 3rem;
-    border-radius: 5rem;
+    right: 22%;
+    bottom: 5%;
     box-shadow: .3rem .7rem 1.4rem #535F62;
     margin-bottom: 1rem;
+    margin-top: 20px;
+
+        .toiletbutton {
+            width: 20px;
+        }
     }  
 }
 @media (max-width: 321px) {

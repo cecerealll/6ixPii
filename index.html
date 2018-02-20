@@ -2,14 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv=“Content-Security-Policy” content=“upgrade-insecure-requests”>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>POOP</title>
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <title>6ixPii</title>
 </head>
-<body>
-    <button>stalk me</button>
+<body>  
+        <div class="loadscreen-container">
+            <div class="loadscreen">
+                <div class="load-img"><img src="images/waterdrop.png" alt="">
+                    <p class="title">6<span>ixpii</spa></p>
+                    <p class="slogan">Six Spots to Pee</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-container">
+            <div class="social">
+                <div class="cece">
+                    <a href="https://twitter.com/cecilianfan"><i class="fab fa-twitter"></i></a>
+                    <a href="https://github.com/cecerealll"><i class="fab fa-github"></i></a>
+                    <p>Cece</p>
+                </div>
+                <div class="callie">
+                    <p>Callie</p>
+                    <a href="https://github.com/calliescott"><i class="fab fa-github"></i></a>
+                    <a href="https://twitter.com/_calliescott"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <button class="animated bounce infinite"><div class="toiletbutton"><img src="./images/toiletpaper.png" alt=""></div></button>
+            <div id="map"></div>
+            <div class="bathroom-results-container">
+                <div class="bathroom-location"></div>
+                <div class="bathroom-location"></div>
+                <div class="bathroom-location"></div>
+                <div class="bathroom-location"></div>
+                <div class="bathroom-location"></div>
+                <div class="bathroom-location"></div>
+            </div>
+        </div>
+
     <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
-    <script src="scripts-2.js"></script>
+    <script src="main.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbq2MoZkppvEWbIonDVq9SU2TWhktZsPE">
+    </script>
+
 </body>
 </html>
