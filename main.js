@@ -108,7 +108,7 @@ pos.getVenue = function (venueType) {
 pos.changeMap = function initMap(lat, lng, userLat, userLng) {
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: lat, lng: lng },
-        zoom: 15,
+        zoom: 17,
         // custom map style
         styles: [
             {

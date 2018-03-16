@@ -193,9 +193,9 @@ body {
     position: absolute;
     width: 300px;
     right: 45%;
-    -webkit-transform: translateY(30%);
-    -ms-transform: translateY(30%);
-    transform: translateY(30%); }
+    -webkit-transform: translateY(50%);
+    -ms-transform: translateY(50%);
+    transform: translateY(50%); }
     .loadscreen .load-img img {
       width: 100%; }
   .loadscreen .title {
